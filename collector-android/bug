@@ -1,0 +1,172 @@
+manjeet@ubuntu:~$ locate php.ini
+/etc/php5/apache2/php.ini
+/etc/php5/cli/php.ini
+manjeet@ubuntu:~$ sudo vim /etc/php5/apache2/php.ini
+and change max_time from 30 to 120.
+manjeet@ubuntu:~$ sudo service apache2 restart
+
+in databaseloader.java ..  hardcode the userid
+gameconfig.php in kiwi backend
+check for restore user id
+
+
+=============================================================================
+Git>
+=====
+ 1479  git status 
+ 1480  git checkout master
+ 1481  git status 
+ 1482  git merge notificationcron
+ 1483  git status
+ 1486  git reset --hard HEAD
+ 1520  git diff > ~/diff
+ 1522  git stashl
+ 1593  git stash apply
+
+GET DELETED FOLDER IN MC INFRA / MODULE
+manjeet@ubuntu:~/workspace/mc-infra$ git submodule init
+Submodule 'moc-server/modules/bi-events' () registered for path 'moc-server/modules/bi-events'
+Submodule 'modules/bi-events' () registered for path 'modules/bi-events'
+Submodule 'modules/kiwi-backend' () registered for path 'modules/kiwi-backend'
+manjeet@ubuntu:~/workspace/mc-infra$ git submodule update
+Submodule path 'modules/bi-events': checked out '0f1083102013205a0418e3e274f571d04968bbb7'
+manjeet@ubuntu:~/workspace/mc-infra$ 
+==============================================================================
+
+
+ ssh msudhanshu@web02-dal05.kiwiup.com
+ ssh msudhanshu@db06-dal05.kiwiup.com
+  
+  vm03 -- qa code/php server ... ssh msudhanshu@vmhost01-dal05.kiwiup.com -p 2203
+  
+  vm04 -- qa databse server ssh msudhanshu@vmhost01-dal05.kiwiup.com -p 2204
+  :access databases:  mysql -uroot -pk1w1  monster_castle 
+  
+  
+  db05 -- prod databse server
+  db06 ? --- prod code server
+
+ To build the code in Jenkins
+  http://ci2.kiwiup.com/
+  
+  To push the code to server Rundeck
+  http://vmhost01-dal05.kiwiup.com:4442/                         
+   me:  what is user name and password for rundeck
+ Sumanth:  admin
+k1w1p@b1r
+  
+    http://qa.kiwiup.com/mc/admin/pushNotificationAll
+    Rundek is a cache of server data.
+    
+    mem05 is cache of all userdatabase
+    ? is cache of serverdatabase
+    
+    so on doing any change on db05 (prod database) do cache refresh
+
+  To build the code in Jenkins
+  http://ci2.kiwiup.com/
+  
+  To push the code to server Rundeck
+  http://vmhost01-dal05.kiwiup.com:4442/
+   me:  what is user name and password for rundeck
+ Sumanth:  admin
+k1w1p@b1r
+  
+
+======================================================================================
+SQL DUMP 
+==========
+sudo su
+ mysqldump monster_castle_shard1 user_advertiser_stats user_assets user_collectables user_daily_bonuses user_daily_news user_details user_neighbor_gifts user_network_profiles user_plans  user_quest_tasks user_quests user_request_logs user_shards user_stats  users --wher user_id=2131017 > /tmp/user_data.sql
+manjeet@ubuntu:~$ cd Downloads/
+manjeet@ubuntu:~/Downloads$ scp msudhanshu@db06-dal05.kiwiup.com:/tmp/user_data.sql .
+user_data_2131017.sql                                                                                        100%  230KB 114.8KB/s   00:02    
+manjeet@ubuntu:~/Downloads$ mysql -uroot -p
+mysqldump monster_castle_shard1 user_advertiser_stats user_assets user_collectables user_daily_bonuses user_daily_news user_details user_neighbor_gifts user_network_profiles user_plans  user_quest_tasks user_quests user_request_logs user_shards user_stats  users --wher user_id=375889 > /tmp/user_data_2131017.sql
+
+source user_data.sql
+
+[msudhanshu@vm03-dal05 monster-castle-qa]$ mysqldump -ukiwi_mc_admin -pVDEscVNR -h10.80.144.227 --single-transaction monster_castle>~/monster_castle_041012.sql
+
+manjeet@ubuntu:~$ scp  -P 2203 msudhanshu@vmhost01-dal05.kiwiup.com:~/monster_castle_041012.sql .
+monster_castle_041012.sql 
+
+=========================================================
+ACCESS DATABASE IN-DIRECTLY
+============================
+ mysql -uroot -pk1w1 monster_castle_shard1 -e "select user_asset_id, xpos, ypos from user_assets where user_id=3052613 and asset_id like '%expans%' order by xpos, ypos"
+ 
+mysql -hdb05-dal05.internal-kiwiup.com -ukiwi -pkiwi 
+  
+    http://qa.kiwiup.com/mc/admin/pushNotificationAll
+    Rundek is a cache of server data.
+    
+    mem05 is cache of all userdatabase
+    ? is cache of serverdatabase
+    
+    so on doing any change on db05 (prod database) do cache refresh
+    
+    [msudhanshu@vm03-dal05 games]$ pwd
+/opt/games
+    
+    [msudhanshu@vm03-dal05 games]$ ls monster-castle-
+monster-castle-cms/          monster-castle-infra/        monster-castle-qa-previous/  
+monster-castle-cms-previous/ monster-castle-qa/ 
+  
+   mysql -ukiwi -pkiwi -h10.80.144.227 monster_castle -e "alter table user_assets_extended add soft_deleted tinyint(1) DEFAULT 0"
+  
+  
+mysql -hdb05-dal05.internal-kiwiup.com -ukiwi -pkiwi monster_castle_shard1 -e "update user_assets set soft_deleted=1 where user_asset_id=2645081000121"
+manjeet@ubuntu:~$ ssh msudhanshu@mem05-dal05.kiwiup.com
+sudo /etc/init.d/memcached restart
+
+TAKE MARKET DUMP ONLY:
+---------------------------
+
+[msudhanshu@vm04-dal05 ~]$ sh market_dump.sh monster_castle
+[msudhanshu@vm04-dal05 ~]$ ls
+market_dump.sh  monster_castle_dump.sql
+[msudhanshu@vm04-dal05 ~]$ mysql -uroot -pk1w1 cms_mc < monster_castle_dump.sql 
+
+
+db06 /opt/backup/sql_>see that user id old log and search for name=gold,quantity>1 , and status for if it is sent,recieved,accepted,regected.
+
+
+web06 /opt/game/mosntaaa/ for crash server log  
+
+
+[msudhanshu@web10-dal05 ~]$ cd /opt/games/monster-castle-live/application/logs/2012/08/
+[msudhanshu@web10-dal05 08]$  grep -ri -C25 'user_id=379073&' .
+
+
+====================================================================================
+PROD:
+=====
+
+so before making any changes in market data of prod , 
+    1. We take sql dump of market databse from db05
+    2. source it to vm04
+    3. do sync of cms (dev cms) to vm04
+    4. if everhthing works fine , do 
+    5. source market dump from vm04   to source to db05.
+
+TO PUT SERVER
+-------------------
+push the code to master
+build it on .... and get build no 
+http://vmhost01-dal05.kiwiup.com:4440/jobs
+ Sumanth:  admin
+k1w1p@b1r
+0. upload the database first .. 
+1.install rpm
+2.game: configure cache and logs dir ownership 
+3.game: refresh 'live' apc cache
+4.Clear OpCode Cache - LIVE
+
+...
+to modify code on prod server (on all server at once ) use cluster ssh  ...
+
+and then do game: refresh 'live' apc cache.
+
+TO PUT APK
+----------------

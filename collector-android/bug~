@@ -1,0 +1,302 @@
+user_advertiser_stats user_assets user_collectables user_daily_bonuses user_daily_news user_details user_neighbor_gifts user_network_profiles user_plans  user_quest_tasks user_quests user_request_logs user_shards user_stats users
+
+
+
+ mysqldump monster_castle_shard1 user_advertiser_stats user_assets user_collectables user_daily_bonuses user_daily_news user_details user_neighbor_gifts user_network_profiles user_plans  user_quest_tasks user_quests user_request_logs user_shards user_stats  users --wher user_id=2131017 > /tmp/user_data_2131017.sql
+
+  454  ssh msudhanshu@web02-dal05.kiwiup.com
+  455  ssh msudhanshu@web08-dal05.kiwiup.com
+  456  clear
+  457  ssh msudhanshu@db06-dal05.kiwiup.com
+
+
+
+
+sudo su
+ mysqldump monster_castle_shard1 user_advertiser_stats user_assets user_collectables user_daily_bonuses user_daily_news user_details user_neighbor_gifts user_network_profiles user_plans  user_quest_tasks user_quests user_request_logs user_shards user_stats  users --wher user_id=2131017 > /tmp/user_data.sql
+manjeet@ubuntu:~$ cd Downloads/
+manjeet@ubuntu:~/Downloads$ scp msudhanshu@db06-dal05.kiwiup.com:/tmp/user_data.sql .
+user_data_2131017.sql                                                                                        100%  230KB 114.8KB/s   00:02    
+manjeet@ubuntu:~/Downloads$ mysql -uroot -p
+mysqldump monster_castle_shard1 user_advertiser_stats user_assets user_collectables user_daily_bonuses user_daily_news user_details user_neighbor_gifts user_network_profiles user_plans  user_quest_tasks user_quests user_request_logs user_shards user_stats  users --wher user_id=375889 > /tmp/user_data_2131017.sql
+
+source user_data.sql
+
+[msudhanshu@vm03-dal05 monster-castle-qa]$ mysqldump -ukiwi_mc_admin -pVDEscVNR -h10.80.144.227 --single-transaction monster_castle>~/monster_castle_041012.sql
+
+manjeet@ubuntu:~$ scp  -P 2203 msudhanshu@vmhost01-dal05.kiwiup.com:~/monster_castle_041012.sql .
+monster_castle_041012.sql 
+
+
+
+in databaseloader.java ..  hardcode the userid
+gameconfig.php in kiwi backend
+check for restore user id
+
+
+
+
+
+
+
+
+
+
+
+
+Git>
+
+manjeet@ubuntu:~/workspace/monster-castle$ git status 
+# On branch master
+# Untracked files:
+ 
+ if not on branch : 
+ manjeet@ubuntu:~/workspace/mc-infra/modules/kiwi-backend$ git pull
+remote: Counting objects: 7, done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 4 (delta 2), reused 0 (delta 0)
+Unpacking objects: 100% (4/4), done.
+From redmine.kiwiup.com:infra/kiwi-backend
+   d959be1..198c60b  master     -> origin/master
+You are not currently on a branch, so I cannot use any
+'branch.<branchname>.merge' in your configuration file.
+Please specify which branch you want to merge with on the command
+line and try again (e.g. 'git pull <repository> <refspec>').
+See git-pull(1) for details.
+ 
+ 
+ git status
+# Not currently on any branch.
+# Untracked files:
+ 
+  1467  git checkout babynator
+ 1468  cd ..
+ 1469  cd mc-infra/
+ 1470  git staTUS
+ 1471  git status
+ 1472  git checkout
+ 1473  git checkout master
+ 1474  git add .
+ 1475  git commit -m "monter"
+ 1476  git checkout master
+ 1477  git pull origin master
+ 1478  git checkout notificationcron 
+ 1479  git status 
+ 1480  git checkout master
+ 1481  git status 
+ 1482  git merge notificationcron
+ 1483  git status
+ 1484  git reset head --HARD
+ 1485  git reset --herd HEAD
+ 1486  git reset --hard HEAD
+ 1487  git status
+ 1488  cd ../monster-castle/
+ 1489  git status
+ 1490  cd ..
+ 1491  mc-infra/
+ 1492  cd mc-infra/
+ 1493  git status 
+ 1494  git checkout babynator
+ 1495  git status 
+ 1496  git pull origin babynator 
+ 1497  git checkout master 
+ 1498  git pull origin master
+ 1499  git status
+ 1500  git add .
+ 1501  git commit -m "added new BI implementation for Babynator"
+ 1502  git status
+ 1503  git push origin master
+ 1504  cd workspace/mc-infra/
+ 1505  git status
+ 1506  git pull origin 
+ 1507  git pull origin master
+ 1508  ls
+ 1509  cd modules/kiwi-backend/
+ 1510  ls
+ 1511  cd ../..
+ 1512  git pull origin master
+ 1513  cd modules/kiwi-backend/
+ 1514  git pull origin master
+ 1515  cd ..
+ 1516  monster-castle/
+ 1517  cd monster-castle/
+ 1518  git status 
+ 1519  git checkout master
+ 1520  git diff > ~/diff
+ 1521  vim /home/manjeet/diff 
+ 1522  git stash
+ 1523  git checkout master
+ 1524  git pull origin master
+ 1525  history
+   1585  git checkout resourcesell 
+ 1586  git pull origin resourcesell 
+ 1587  git status
+ 1588  git stash
+ 1589  git checkout master
+ 1590  git diff origin/master
+ 1591  git status
+ 1592  git checkout resourcesell
+ 1593  git stash apply
+ 1594  git stash
+ 1595  git checkout master
+ 1596  history
+  
+  
+  
+  manjeet@ubuntu:~/workspace/mc-infra$ git submodule init
+Submodule 'moc-server/modules/bi-events' () registered for path 'moc-server/modules/bi-events'
+Submodule 'modules/bi-events' () registered for path 'modules/bi-events'
+Submodule 'modules/kiwi-backend' () registered for path 'modules/kiwi-backend'
+manjeet@ubuntu:~/workspace/mc-infra$ git submodule update
+Submodule path 'modules/bi-events': checked out '0f1083102013205a0418e3e274f571d04968bbb7'
+manjeet@ubuntu:~/workspace/mc-infra$ 
+  
+ Then:
+manjeet@ubuntu:~/workspace/mc-infra/modules/kiwi-backend$ git checkout master
+Warning: you are leaving 1 commit behind, not connected to
+any of your branches:
+
+  b09b74c added pushnotificationall.php , it is interface page to send notification to all the users
+
+If you want to keep them by creating a new branch, this may be a good time
+to do so with:
+
+ git branch new_branch_name b09b74ca71d9a9a6d01e893f35619e61c644c3e3
+
+Switched to branch 'master'
+Your branch is behind 'origin/master' by 51 commits, and can be fast-forwarded.
+manjeet@ubuntu:~/workspace/mc-infra/modules/kiwi-backend$ git status
+# On branch master
+# Your branch is behind 'origin/master' by 51 commits, and can be fast-forwarded.
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	classes/controller/admin.php~
+#	classes/controller/c2dm.php~
+#	classes/controller/notifycontroller.php~
+#	classes/model/kiwi.php~
+#	views/pushNotificationAll.php~
+nothing added to commit but untracked files present (use "git add" to track)
+manjeet@ubuntu:~/workspace/mc-infra/modules/kiwi-backend$ git pull origin master
+
+
+ mysql -uroot -pk1w1 monster_castle_shard1 -e "select user_asset_id, xpos, ypos from user_assets where user_id=3052613 and asset_id like '%expans%' order by xpos, ypos"
+ 
+ 
+  mysql -hdb05-dal05.internal-kiwiup.com -ukiwi -pkiwi 
+  
+  
+  
+  
+  
+  To build the code in Jenkins
+  http://ci2.kiwiup.com/
+  
+  To push the code to server Rundeck
+  http://vmhost01-dal05.kiwiup.com:4442/
+   me:  what is user name and password for rundeck
+ Sumanth:  admin
+k1w1p@b1r
+  
+  
+  vm03 -- qa code/php server ... ssh msudhanshu@vmhost01-dal05.kiwiup.com -p 2203
+  
+  vm04 -- qa databse server
+  
+  db05 -- prod databse server
+  db06 ? --- prod code server
+  
+  so before making any changes in market data of prod , 
+    1. be take sql dump of market databse from db05
+    2. source it to vm04
+    3. do sync of cms (dev cms) to vm04
+    4. if everhthing works fine , do 
+    5. source market dump from vm04   to source to db05.
+    
+    http://qa.kiwiup.com/mc/admin/pushNotificationAll
+    Rundek is a cache of server data.
+    
+    mem05 is cache of all userdatabase
+    ? is cache of serverdatabase
+    
+    so on doing any change on db05 (prod database) do cache refresh
+    
+    [msudhanshu@vm03-dal05 games]$ pwd
+/opt/games
+    
+    [msudhanshu@vm03-dal05 games]$ ls monster-castle-
+monster-castle-cms/          monster-castle-infra/        monster-castle-qa-previous/  
+monster-castle-cms-previous/ monster-castle-qa/ 
+  
+   mysql -ukiwi -pkiwi -h10.80.144.227 monster_castle -e "alter table user_assets_extended add soft_deleted tinyint(1) DEFAULT 0"
+  
+  
+mysql -hdb05-dal05.internal-kiwiup.com -ukiwi -pkiwi monster_castle_shard1 -e "update user_assets set soft_deleted=1 where user_asset_id=2645081000121"
+manjeet@ubuntu:~$ ssh msudhanshu@mem05-dal05.kiwiup.com
+sudo /etc/init.d/memcached restart
+
+
+
+
+db06 /opt/backup/sql_>see that user id old log and search for name=gold,quantity>1 , and status for if it is sent,recieved,accepted,regected.
+
+
+web06 /opt/game/mosntaaa/ for crash server log  
+
+
+[msudhanshu@web10-dal05 ~]$ cd /opt/games/monster-castle-live/application/logs/2012/08/
+[msudhanshu@web10-dal05 08]$  grep -ri -C25 'user_id=379073&' .
+
+
+
+
+
+manjeet@ubuntu:~$ locate php.ini
+/etc/php5/apache2/php.ini
+/etc/php5/cli/php.ini
+manjeet@ubuntu:~$ sudo vim /etc/php5/apache2/php.ini
+and change max_time from 30 to 120.
+manjeet@ubuntu:~$ sudo service apache2 restart
+mysql -ukiwi -pkiwi
+
+	msudhanshu@web08-dal05.kiwiup.com
+mysql -ukiwi -pkiwi
+
+
+
+
+php -q /var/www/mc-infra/modules/kiwi-backend/scripts/sendnotification.php mcdb="development =>mysnstercastle, s001 => mysql://kiwi:kiwi@localhost/monstercastle, s002 => mysql://kiwi:kiwi@localhost/monstercastle"
+mcdb="development => mysql://kiwi:kiwi@game-at-qa.internal-kiwiup.com:13306/monster_castle, s001 => mysql://kiwi:kiwi@game-at-qa.internal-kiwiup.com:13306/monster_castle_shard1, s002 => mysql://kiwi:kiwi@game-at-qa.internal-kiwiup.com:13306/monster_castle_shard2"
+
+
+
+
+
+
+
+
+
+
+
+
+
+For Prod:
+TO PUT SERVER
+-------------------
+push the code to master
+build it on .... and get build no 
+http://vmhost01-dal05.kiwiup.com:4440/jobs
+0. upload the database first .. 
+1.install rpm
+2.game: configure cache and logs dir ownership 
+3.game: refresh 'live' apc cache
+4.Clear OpCode Cache - LIVE
+
+...
+to modify code on prod server (on all server at once ) use cluster ssh  ...
+
+and then do game: refresh 'live' apc cache.
+
+TO PUT APK
+----------------
